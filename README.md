@@ -1,5 +1,7 @@
 # 🎙️ Voice GenAI Tool | Voice Cloning, Transcription, Real-time AI
 
+![Coverage](https://img.shields.io/badge/coverage-check_pytest--cov-blue?style=for-the-badge)
+
 <div align="center">
 
 ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
@@ -40,67 +42,19 @@
 
 ---
 
-## 🏃 Quick Start
+## 📊 Coverage Setup
+
+To generate test coverage reports:
 
 ```bash
-# Clone
-git clone https://github.com/VinodHatti7019/Voice-GenAI-Tool
-cd Voice-GenAI-Tool
+# Install pytest-cov
+pip install pytest-cov
 
-# Setup
-python -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-cp .env.example .env  # add ELEVENLABS_API_KEY
+# Run tests with coverage
+pytest --cov=src --cov-report=html --cov-report=term
 
-# Run backend
-uvicorn app.main:app --reload
-
-# Run sample client
-python clients/realtime_client.py
+# View HTML report
+open htmlcov/index.html
 ```
 
 ---
-
-## 📚 Sample Usage (Python)
-
-```python
-from app.voice import VoicePipeline
-
-pipe = VoicePipeline(model="whisper", tts="elevenlabs")
-segments = pipe.transcribe("sample.wav")
-audio = pipe.speak("Hello, this is a voice test", voice_id="Rachel")
-```
-
----
-
-## 🧠 Architecture
-
-- Input: mic -> VAD -> chunks -> ASR
-- Orchestration: async tasks, queues, callbacks
-- Output: text -> LLM (optional) -> TTS -> stream to client
-- Monitoring: latency metrics, error tracking hooks
-
----
-
-## 🔐 Compliance & Safety
-
-- Consent-based voice cloning prompts
-- PII redaction and content moderation
-- Configurable retention policy
-
----
-
-## 🧭 Roadmap
-
-- [ ] Realtime LLM streaming with function-calling
-- [ ] Emotion-aware TTS selection
-- [ ] Multi-speaker meeting transcription
-
----
-
-## 📞 Contact
-
-- Email: officialvinodhatti@gmail.com
-- LinkedIn: https://www.linkedin.com/in/vinodhatti/
-- Portfolio: https://tryliate.com

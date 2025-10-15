@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice GenAI Tool - Multilingual Voice AI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+            width: 100%;
+            padding: 40px;
+        }
+        h1 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .feature-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        .feature-icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        .control-section {
+            margin: 30px 0;
+        }
+        .control-section h2 {
+            color: #764ba2;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+        }
+        input[type="text"], textarea, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+        input[type="text"]:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        .button-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        button {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            flex: 1;
+            min-width: 150px;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+        .btn-secondary {
+            background: #f8f9fa;
+            color: #333;
+            border: 2px solid #e0e0e0;
+        }
+        .btn-secondary:hover {
+            background: #e9ecef;
+        }
+        .status {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            display: none;
+        }
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .status.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        audio {
+            width: 100%;
+            margin-top: 20px;
+        }
+        .api-info {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #856404;
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 2em;
+            }
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎤 Voice GenAI Tool</h1>
+        <p class="subtitle">Multilingual Voice AI with Speech Recognition, TTS & Voice Cloning</p>
+        
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🎙️</div>
+                <h3>Speech Recognition</h3>
+                <p>Multi-language ASR</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔊</div>
+                <h3>Text-to-Speech</h3>
+                <p>Natural voice synthesis</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">👤</div>
+                <h3>Voice Cloning</h3>
+                <p>Personalized voices</p>
+            </div>
+        </div>
+
+        <div class="control-section">
+            <h2>Text to Speech</h2>
+            <div class="input-group">
+                <label for="text-input">Enter Text:</label>
+                <textarea id="text-input" placeholder="Enter the text you want to convert to speech...">Hello! Welcome to Voice GenAI Tool. This is a multilingual voice AI system.</textarea>
+            </div>
+            <div class="input-group">
+                <label for="language">Select Language:</label>
+                <select id="language">
+                    <option value="en">English</option>
+                    <option value="es">Spanish</option>
+                    <option value="fr">French</option>
+                    <option value="de">German</option>
+                    <option value="hi">Hindi</option>
+                    <option value="zh">Chinese</option>
+                    <option value="ja">Japanese</option>
+                </select>
+            </div>
+            <div class="button-group">
+                <button class="btn-primary" onclick="synthesizeSpeech()">🔊 Generate Speech</button>
+                <button class="btn-secondary" onclick="clearResults()">🗑️ Clear</button>
+            </div>
+        </div>
+
+        <div class="control-section">
+            <h2>Speech Recognition</h2>
+            <div class="button-group">
+                <button class="btn-primary" onclick="startRecording()">🎙️ Start Recording</button>
+                <button class="btn-secondary" onclick="stopRecording()">⏹️ Stop Recording</button>
+            </div>
+        </div>
+
+        <div id="status" class="status"></div>
+        <div id="audio-container"></div>
+
+        <div class="api-info">
+            <strong>ℹ️ API Information:</strong><br>
+            Backend API should be running on <code>http://localhost:8000</code><br>
+            Endpoints: /api/v1/tts, /api/v1/asr, /api/v1/voice-clone
+        </div>
+    </div>
+
+    <script>
+        const API_BASE_URL = 'http://localhost:8000/api/v1';
+
+        function showStatus(message, type) {
+            const status = document.getElementById('status');
+            status.textContent = message;
+            status.className = `status ${type}`;
+            status.style.display = 'block';
+            setTimeout(() => {
+                status.style.display = 'none';
+            }, 5000);
+        }
+
+        async function synthesizeSpeech() {
+            const text = document.getElementById('text-input').value;
+            const language = document.getElementById('language').value;
+            
+            if (!text.trim()) {
+                showStatus('Please enter some text', 'error');
+                return;
+            }
+
+            showStatus('Generating speech...', 'info');
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/tts`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ text, language })
+                });
+
+                if (response.ok) {
+                    const blob = await response.blob();
+                    const audioUrl = URL.createObjectURL(blob);
+                    const audioContainer = document.getElementById('audio-container');
+                    audioContainer.innerHTML = `<audio controls autoplay><source src="${audioUrl}" type="audio/wav"></audio>`;
+                    showStatus('Speech generated successfully!', 'success');
+                } else {
+                    showStatus('Error generating speech. Please check if the backend is running.', 'error');
+                }
+            } catch (error) {
+                showStatus('Cannot connect to backend API. Please ensure the server is running on port 8000.', 'error');
+            }
+        }
+
+        let mediaRecorder;
+        let audioChunks = [];
+
+        async function startRecording() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                mediaRecorder = new MediaRecorder(stream);
+                audioChunks = [];
+
+                mediaRecorder.ondataavailable = (event) => {
+                    audioChunks.push(event.data);
+                };
+
+                mediaRecorder.onstop = async () => {
+                    const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                    await processAudio(audioBlob);
+                };
+
+                mediaRecorder.start();
+                showStatus('Recording... Click Stop when done', 'info');
+            } catch (error) {
+                showStatus('Microphone access denied or not available', 'error');
+            }
+        }
+
+        function stopRecording() {
+            if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+                mediaRecorder.stop();
+                showStatus('Processing audio...', 'info');
+            }
+        }
+
+        async function processAudio(audioBlob) {
+            try {
+                const formData = new FormData();
+                formData.append('audio', audioBlob, 'recording.wav');
+
+                const response = await fetch(`${API_BASE_URL}/asr`, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    document.getElementById('text-input').value = data.text;
+                    showStatus('Speech recognized successfully!', 'success');
+                } else {
+                    showStatus('Error recognizing speech. Please check if the backend is running.', 'error');
+                }
+            } catch (error) {
+                showStatus('Cannot connect to backend API. Please ensure the server is running on port 8000.', 'error');
+            }
+        }
+
+        function clearResults() {
+            document.getElementById('text-input').value = '';
+            document.getElementById('audio-container').innerHTML = '';
+            showStatus('Cleared!', 'info');
+        }
+    </script>
+</body>
+</html>
